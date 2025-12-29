@@ -3,7 +3,6 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import gspread
-import json
 from oauth2client.service_account import ServiceAccountCredentials
 import requests
 
@@ -18,10 +17,9 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-creds_json = os.getenv("GOOGLE_CREDENTIALS")
-creds_dict = json.loads(creds_json)
-
-creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, SCOPE)
+creds = ServiceAccountCredentials.from_json_keyfile_name(
+    "credentials.json", SCOPE
+)
 client = gspread.authorize(creds)
 
 SHEET_NAME = "MODS STARDEW"
