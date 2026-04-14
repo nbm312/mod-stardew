@@ -39,7 +39,7 @@ HEADERS = [
 # ---------------- CONSTANTES ----------------
 PRIORIDADES = ["Alta", "Media", "Baja", "Vetada", "Evaluar"]
 ALTERNATIVAS = ["Sí", "No"]
-INSTALADO_VALORES = ["TRUE", "FALSE"]  # Para checkbox
+INSTALADO_VALORES = ["VERDADERO", "FALSO"]  # Para checkbox
 NEXUS_API_KEY = os.getenv("DISCORD_NEXUS_API_KEY")
 TOKEN = os.getenv("DISCORD_TOKEN")
 
@@ -87,8 +87,8 @@ def get_fila_vacia():
 
 def normalizar_instalado(valor: str):
     if valor.lower() in ["si", "sí", "true", "verdadero"]:
-        return "TRUE"
-    return "FALSE"
+        return "VERDADERO"
+    return "FALSO"
 # ---------------- AUTOCOMPLETADO CORRECTO ----------------
 
 # Para prioridad
@@ -248,9 +248,9 @@ async def mods_instalado(interaction: discord.Interaction, instalado: str, page:
     try:
         rows = sheet.get_all_records()
         if instalado.lower() in ["sí","si"]:
-            filtered = [r for r in rows if str(r["Instalado"]).upper() == "TRUE"]
+            filtered = [r for r in rows if str(r["Instalado"]).upper() == "VERDADERO"]
         else:
-            filtered = [r for r in rows if str(r["Instalado"]).upper() == "FALSE"]
+            filtered = [r for r in rows if str(r["Instalado"]).upper() == "FALSO"]
 
         if not filtered:
             await interaction.response.send_message(f"❌ No hay mods con instalado = '{instalado}'.")
